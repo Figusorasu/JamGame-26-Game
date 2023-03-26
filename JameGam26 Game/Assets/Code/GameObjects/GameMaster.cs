@@ -14,4 +14,9 @@ public class GameMaster : MonoBehaviour
         }
     }
 
+    public int currentCoins = 0;
+
+    public int coinsCollected_Lvl_1 = 0;
+    public int coinsCollected_Lvl_2 = 0;
+    public int coinsCollected_Lvl_3 = 0;
 }

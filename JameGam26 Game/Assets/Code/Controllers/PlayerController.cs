@@ -7,9 +7,10 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Movement")]
     public float speed;
+    public bool canMove = true;
 
-    [SerializeField] private float inputHorizontal;
-    [SerializeField] private float inputVertical;
+    private float inputHorizontal;
+    private float inputVertical;
     private bool facingRight = true;
 
     [Header("Jump")]
@@ -29,6 +30,8 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
+    [SerializeField] private Animator anim;
+    [SerializeField] private TrailRenderer trail;
 
 
     private void Start() {
@@ -37,15 +40,50 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate() {
         rb.velocity = new Vector2(inputHorizontal * speed, rb.velocity.y);
-    }
 
-    private void Update() {
         if(!facingRight && rb.velocity.x > 0) {
             Flip();
         } else if(facingRight && rb.velocity.x < 0) {
             Flip();
         }
+
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, checkRadius, whatIsGround);
+
+        if(isGrounded) {
+            canJump = true;
+        } else {
+            canJump = false;
+        }
+
+        if(rb.velocity.x == 0) {
+            anim.SetBool("Walk", false);
+        } else {
+            anim.SetBool("Walk", true);
+        }
+
+        if(rb.velocity.y == 0) {
+            anim.SetBool("Jump", false);
+            trail.emitting = false;
+        } else {
+            anim.SetBool("Jump", true);
+            trail.emitting = true;
+        }
+
     }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.CompareTag("Coin")) {
+            Destroy(other.gameObject);
+            GM.currentCoins += 1;
+        }
+    }
+
+    private void OnDrawGizmosSelected() {
+        // Ground Check Radius Display
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(groundCheck.position, checkRadius);
+    }
+
 
     void Flip() {
         facingRight = !facingRight;
@@ -59,7 +97,17 @@ public class PlayerController : MonoBehaviour
         inputHorizontal = ctx.ReadValue<Vector2>().x;
     }
 
+    public void Jump(InputAction.CallbackContext ctx) {
+        if(ctx.performed && canJump) {
+            rb.velocity = Vector2.up * jumpforce;
+        }
+    }
 
+    public void Interact(InputAction.CallbackContext ctx) {
+        if(ctx.performed) {
+
+        }
+    }
 
 
 }
