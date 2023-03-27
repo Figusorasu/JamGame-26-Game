@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -32,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Animator anim;
     [SerializeField] private TrailRenderer trail;
+    [SerializeField] private HealthController hp;
 
 
     private void Start() {
@@ -39,8 +41,10 @@ public class PlayerController : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        rb.velocity = new Vector2(inputHorizontal * speed, rb.velocity.y);
-
+        if(canMove) {
+            rb.velocity = new Vector2(inputHorizontal * speed, rb.velocity.y);
+        }
+        
         if(!facingRight && rb.velocity.x > 0) {
             Flip();
         } else if(facingRight && rb.velocity.x < 0) {
@@ -69,12 +73,23 @@ public class PlayerController : MonoBehaviour
             trail.emitting = true;
         }
 
+
+        if(hp.health == 0) {
+            
+            GM.currentCoins = 0;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Coin")) {
             Destroy(other.gameObject);
             GM.currentCoins += 1;
+        }
+
+        if(other.CompareTag("Enemy")) {
+            hp.health -= 1;
         }
     }
 
