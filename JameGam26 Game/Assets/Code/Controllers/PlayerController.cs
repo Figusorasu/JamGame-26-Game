@@ -65,31 +65,60 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Walk", true);
         }
 
-        if(rb.velocity.y == 0) {
-            anim.SetBool("Jump", false);
-            trail.emitting = false;
-        } else {
+        if(!isGrounded && hp.health != 0) {
             anim.SetBool("Jump", true);
             trail.emitting = true;
+        } else {
+            anim.SetBool("Jump", false);
+            trail.emitting = false;
         }
 
-
         if(hp.health == 0) {
+            canMove = false;
+            canJump = false;
+            rb.gravityScale = 0f;
+            rb.velocity = new Vector2(0,0);
             
-            GM.currentCoins = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            anim.SetTrigger("Death");
+            StartCoroutine(Death(1f));
         }
 
     }
 
+    private IEnumerator Death(float waitTime) {
+        yield return new WaitForSeconds(waitTime);
+        reloadLevel();
+    }
+
+    public void reloadLevel() {
+        GM.currentCoins = 0;
+        GM.healingCoins = 0;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.CompareTag("Coin")) {
-            Destroy(other.gameObject);
+            other.gameObject.transform.GetChild(1).gameObject.GetComponent<Animator>().SetTrigger("Collect");
+            other.gameObject.GetComponent<Collider2D>().enabled = false;
+            FindObjectOfType<AudioManager>().PlaySound("CardPickup");
+            Destroy(other.gameObject, 0.5f);
             GM.currentCoins += 1;
+            GM.healingCoins += 1;
         }
 
         if(other.CompareTag("Enemy")) {
             hp.health -= 1;
+            if(hp.health != 0) {
+                FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
+                anim.SetTrigger("Hurt");
+            } else {
+                FindObjectOfType<AudioManager>().PlaySound("PlayerDeath");
+            }
+        }
+
+        if(other.CompareTag("DeathRegion")) {
+            hp.health = 0;
+            FindObjectOfType<AudioManager>().PlaySound("PlayerDeath");
         }
     }
 

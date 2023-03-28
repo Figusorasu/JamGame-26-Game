@@ -10,8 +10,13 @@ public class HealthController : MonoBehaviour
 
     public Image[] hearts;
 
+    [SerializeField] private Animator healPrompt;
+
+    private GameMaster GM;
+
     private void Start() {
         health = maxHealth;
+        GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
     }
 
     private void Update() {
@@ -22,6 +27,15 @@ public class HealthController : MonoBehaviour
             } else {
                 hearts[i].enabled = false;
             }
+        }
+
+        if(GM.healingCoins == 10) {
+            if(health < maxHealth) {
+                healPrompt.SetTrigger("Heal");
+                FindObjectOfType<AudioManager>().PlaySound("Heal");
+                health += 1;
+            }
+            GM.healingCoins = 0;
         }
     }
 

@@ -7,6 +7,8 @@ TagManager:
   - GM
   - Coin
   - Enemy
+  - DirectionFlipper
+  - DeathRegion
   layers:
   - Default
   - TransparentFX
