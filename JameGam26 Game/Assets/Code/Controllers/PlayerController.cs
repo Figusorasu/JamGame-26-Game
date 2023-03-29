@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start() {
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+        GM.currentCoins = 0;
     }
 
     private void FixedUpdate() {
@@ -124,6 +125,7 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("Finish")) {
             canMove = false;
             canJump = false;
+            rb.velocity = new Vector2(0,0);
             other.gameObject.GetComponent<Animator>().SetTrigger("win");
             anim.SetTrigger("win");
             GameObject.FindObjectOfType<PauseMenu>().transform.GetChild(7).gameObject.SetActive(true);
