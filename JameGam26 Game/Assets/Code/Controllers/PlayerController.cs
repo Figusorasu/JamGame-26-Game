@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
             trail.emitting = false;
         }
 
-        if(hp.health == 0) {
+        if(hp.health < 1) {
             canMove = false;
             canJump = false;
             rb.gravityScale = 0f;
@@ -108,10 +108,10 @@ public class PlayerController : MonoBehaviour
 
         if(other.CompareTag("Enemy")) {
             hp.health -= 1;
-            if(hp.health != 0) {
+            if(hp.health > 0) {
                 FindObjectOfType<AudioManager>().PlaySound("PlayerHurt");
                 anim.SetTrigger("Hurt");
-            } else {
+            } else if(hp.health <= 0){
                 FindObjectOfType<AudioManager>().PlaySound("PlayerDeath");
             }
         }
@@ -119,6 +119,14 @@ public class PlayerController : MonoBehaviour
         if(other.CompareTag("DeathRegion")) {
             hp.health = 0;
             FindObjectOfType<AudioManager>().PlaySound("PlayerDeath");
+        }
+
+        if(other.CompareTag("Finish")) {
+            canMove = false;
+            canJump = false;
+            other.gameObject.GetComponent<Animator>().SetTrigger("win");
+            anim.SetTrigger("win");
+            GameObject.FindObjectOfType<PauseMenu>().transform.GetChild(7).gameObject.SetActive(true);
         }
     }
 

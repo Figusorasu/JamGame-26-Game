@@ -9,6 +9,12 @@ public class PauseMenu : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public GameObject levelCompleateUI;
+
+    private void Start() {
+        Resume();
+        levelCompleateUI.SetActive(false);
+    }
 
     public void pauseMenu(InputAction.CallbackContext ctx) {
         if(ctx.performed) {
@@ -47,5 +53,9 @@ public class PauseMenu : MonoBehaviour
 
     public void PlayHoverSound() {
         FindObjectOfType<AudioManager>().PlaySound("ButtonHover");
+    }
+
+    public void LoadNextLevel() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
