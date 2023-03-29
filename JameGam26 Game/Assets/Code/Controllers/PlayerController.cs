@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     private void Start() {
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
         GM.currentCoins = 0;
+        GM.healingCoins = 0;
     }
 
     private void FixedUpdate() {
