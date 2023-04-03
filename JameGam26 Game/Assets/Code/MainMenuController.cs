@@ -5,6 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
+    private GameMaster gm;
+
+    private void Start() {
+        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+    }
+
     public void PlayGame() {
         SceneManager.LoadScene("Level1");
     }
@@ -32,6 +38,10 @@ public class MainMenuController : MonoBehaviour
 
     public void PlayHoverSound() {
         FindObjectOfType<AudioManager>().PlaySound("ButtonHover");
+    }
+
+    public void showMobileControlsUI() {
+        gm.showMobileControls = !gm.showMobileControls;
     }
 
 

@@ -11,27 +11,25 @@ public class UserInterface : MonoBehaviour
 
     public GameObject pauseMenuUI;
     public GameObject levelCompleateUI;
-    public GameObject joystick;
+    public GameObject mobileControls;
+
+    private GameMaster gm;
 
     private void Start() {
         Resume();
         levelCompleateUI.SetActive(false);
-    }
 
+        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
+    }
 
     private void Update() {
-        if(Input.touchCount == 1) {
-            Touch touch = Input.GetTouch(0);
-            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-            Vector3 joystickDefaultPos = joystick.transform.position;
-
-            if(TouchPhase.Began == 0) {
-                joystick.transform.position = touchPosition;
-            } else if(true) {
-                joystick.transform.position = joystickDefaultPos;
-            }
+        if(gm.showMobileControls == true) {
+            mobileControls.SetActive(true);
+        } else {
+            mobileControls.SetActive(false);
         }
     }
+
 
     public void pauseMenu(InputAction.CallbackContext ctx) {
         if(ctx.performed) {

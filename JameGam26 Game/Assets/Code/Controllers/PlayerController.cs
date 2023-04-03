@@ -59,11 +59,6 @@ public class PlayerController : MonoBehaviour
             inputHorizontal = 0f;
         }
 
-        if(joystick.Vertical >= .5f && canJump) {
-            rb.velocity = Vector2.up * jumpforce;
-        } else {
-            inputVertical = 0f;
-        }
         
         
         if(!facingRight && rb.velocity.x > 0) {

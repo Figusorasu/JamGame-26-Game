@@ -10,6 +10,7 @@ TagManager:
   - DirectionFlipper
   - DeathRegion
   - Joystick
+  - UI
   layers:
   - Default
   - TransparentFX
