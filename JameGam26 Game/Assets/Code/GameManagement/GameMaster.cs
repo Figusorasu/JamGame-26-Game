@@ -13,6 +13,8 @@ public class GameMaster : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        Application.targetFrameRate = 60; 
     }
 
     public int currentCoins = 0;
