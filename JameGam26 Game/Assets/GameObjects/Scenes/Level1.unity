@@ -24747,6 +24747,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 430210507155530931, guid: 9399cdf1820c7324194c263904b68d3d, type: 3}
   m_PrefabInstance: {fileID: 1673948845}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1775803137 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1429751411244357577, guid: be5a192f8343d92479d68046799ea886, type: 3}
+  m_PrefabInstance: {fileID: 7516553228693255712}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45977bbae16431c46a013576a1aea384, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1797116672
 GameObject:
   m_ObjectHideFlags: 0
@@ -27473,6 +27484,10 @@ PrefabInstance:
       propertyPath: hp
       value: 
       objectReference: {fileID: 7516553228693255713}
+    - target: {fileID: 6333095489852875429, guid: 2041e176295ffb94aa2e92a69aff9ac4, type: 3}
+      propertyPath: joystick
+      value: 
+      objectReference: {fileID: 1775803137}
     - target: {fileID: 6333095489852875430, guid: 2041e176295ffb94aa2e92a69aff9ac4, type: 3}
       propertyPath: m_ActionEvents.Array.size
       value: 14

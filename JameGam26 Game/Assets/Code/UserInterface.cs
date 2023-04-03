@@ -3,17 +3,34 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TouchPhase = UnityEngine.TouchPhase;
 
-public class PauseMenu : MonoBehaviour
+public class UserInterface : MonoBehaviour
 {
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
     public GameObject levelCompleateUI;
+    public GameObject joystick;
 
     private void Start() {
         Resume();
         levelCompleateUI.SetActive(false);
+    }
+
+
+    private void Update() {
+        if(Input.touchCount == 1) {
+            Touch touch = Input.GetTouch(0);
+            Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+            Vector3 joystickDefaultPos = joystick.transform.position;
+
+            if(TouchPhase.Began == 0) {
+                joystick.transform.position = touchPosition;
+            } else if(true) {
+                joystick.transform.position = joystickDefaultPos;
+            }
+        }
     }
 
     public void pauseMenu(InputAction.CallbackContext ctx) {

@@ -23,13 +23,15 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private LayerMask whatIsGround;
 
-    private bool isGrounded;
+    public bool isGrounded;
     
 
     [Header("Components")]
     private GameMaster GM;
 
-    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Joystick joystick;
+
+    [SerializeField] public Rigidbody2D rb;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Animator anim;
     [SerializeField] private TrailRenderer trail;
@@ -40,12 +42,29 @@ public class PlayerController : MonoBehaviour
         GM = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
         GM.currentCoins = 0;
         GM.healingCoins = 0;
+
+        //joystick = GameObject.FindGameObjectWithTag("Joistick").GetComponent<FixedJoystick>();
     }
 
     private void FixedUpdate() {
         if(canMove) {
             rb.velocity = new Vector2(inputHorizontal * speed, rb.velocity.y);
         }
+
+        if(joystick.Horizontal >= .2f) {
+            inputHorizontal = joystick.Horizontal;
+        } else if(joystick.Horizontal <= -.2f) {
+            inputHorizontal = joystick.Horizontal;
+        } else {
+            inputHorizontal = 0f;
+        }
+
+        if(joystick.Vertical >= .5f && canJump) {
+            rb.velocity = Vector2.up * jumpforce;
+        } else {
+            inputVertical = 0f;
+        }
+        
         
         if(!facingRight && rb.velocity.x > 0) {
             Flip();
@@ -129,7 +148,8 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(0,0);
             other.gameObject.GetComponent<Animator>().SetTrigger("win");
             anim.SetTrigger("win");
-            GameObject.FindObjectOfType<PauseMenu>().transform.GetChild(7).gameObject.SetActive(true);
+            GameObject.FindObjectOfType<UserInterface>().transform.GetChild(8).gameObject.SetActive(true);
+            GameObject.FindObjectOfType<UserInterface>().transform.GetChild(7).gameObject.SetActive(false);
         }
     }
 

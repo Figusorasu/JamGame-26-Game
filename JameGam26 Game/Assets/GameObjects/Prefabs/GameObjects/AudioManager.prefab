@@ -47,31 +47,37 @@ MonoBehaviour:
   sounds:
   - name: PlayerHurt
     clip: {fileID: 8300000, guid: 4902a5ad65b3c324c8d89d9b5ed68cc9, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 1
+    mixerGroup: {fileID: -3421846459015100264, guid: 17d494ec98f6def4db03b7460538044c, type: 2}
     source: {fileID: 0}
   - name: PlayerDeath
     clip: {fileID: 8300000, guid: 398e489f8171fb04fa32b175e201be9a, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 1
+    mixerGroup: {fileID: -3421846459015100264, guid: 17d494ec98f6def4db03b7460538044c, type: 2}
     source: {fileID: 0}
   - name: ButtonClick
     clip: {fileID: 8300000, guid: 0cbe4e9ea54fcdd428138f5306f4a925, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 1
+    mixerGroup: {fileID: -3421846459015100264, guid: 17d494ec98f6def4db03b7460538044c, type: 2}
     source: {fileID: 0}
   - name: ButtonHover
     clip: {fileID: 8300000, guid: 2fd4bb28a8227974f9c712bfa4a4d12d, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 1
+    mixerGroup: {fileID: -3421846459015100264, guid: 17d494ec98f6def4db03b7460538044c, type: 2}
     source: {fileID: 0}
   - name: CardPickup
     clip: {fileID: 8300000, guid: 90173cfb6e317a24bb086ef5d9fdf35a, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 1
+    mixerGroup: {fileID: -3421846459015100264, guid: 17d494ec98f6def4db03b7460538044c, type: 2}
     source: {fileID: 0}
   - name: Heal
     clip: {fileID: 8300000, guid: 1254ada63e911554ca14a2484a0fd502, type: 3}
-    volume: 0.8
+    volume: 1
     pitch: 1
+    mixerGroup: {fileID: -3421846459015100264, guid: 17d494ec98f6def4db03b7460538044c, type: 2}
     source: {fileID: 0}

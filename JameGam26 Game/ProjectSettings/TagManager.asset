@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - DirectionFlipper
   - DeathRegion
+  - Joystick
   layers:
   - Default
   - TransparentFX
