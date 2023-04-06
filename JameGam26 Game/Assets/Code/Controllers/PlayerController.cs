@@ -51,15 +51,15 @@ public class PlayerController : MonoBehaviour
             rb.velocity = new Vector2(inputHorizontal * speed, rb.velocity.y);
         }
 
-        if(joystick.Horizontal >= .2f) {
-            inputHorizontal = joystick.Horizontal;
-        } else if(joystick.Horizontal <= -.2f) {
-            inputHorizontal = joystick.Horizontal;
-        } else {
-            inputHorizontal = 0f;
+        if(GM.showMobileControls) {
+            if(joystick.Horizontal >= .2f) {
+                inputHorizontal = joystick.Horizontal;
+            } else if(joystick.Horizontal <= -.2f) {
+                inputHorizontal = joystick.Horizontal;
+            } else {
+                inputHorizontal = 0f;
+            }
         }
-
-        
         
         if(!facingRight && rb.velocity.x > 0) {
             Flip();
