@@ -45,5 +45,4 @@ public class HealthController : MonoBehaviour
             health -= 1;
         }
     }
-
 }
